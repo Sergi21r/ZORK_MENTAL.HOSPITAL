@@ -1,9 +1,10 @@
 #include "World.h"
 #include<string.h>
+#include<stdio.h>
 #define NUM_ROOMS 9
 #define NUM_EXITS 16
 
-World::World()
+World::World() //CONSTRUCTOR, memory reserve
 {
 
 	rooms = new Room[NUM_ROOMS];
@@ -178,5 +179,29 @@ void World::CreateWorld() const
 
 }
 
+void World::Help() const
+{
+	printf("---------------WELCOME TO THE MENTAL HOSPITAL ZORK---------------\n");
+	printf("You are the doctor of this hospital and you work very hard every journal day.\n");
+	printf("In this moment you are in your office but the electricity of the hospital\n");
+	printf("crashes, lights go out and doors are open\n");
+	printf("Now you listen a lot of noises and the inmates walking around the hospital,\n");
+	printf("you are a bit scared about the situation\n\n");
+	printf("OBJECIVE: Try to escape from the hospital. NOTE: Emergency escape is locked,\n");
+	printf("you have to find a secret way for escape\n\n");
+	printf("-------------------MOVEMENTS AND INTERACTIONS:-------------------\n");
+	printf("NORTH/SOUTH/EAST/WEST , N/S/E/W , Go North/Go South/Go East/Go West\n");
+	printf("Look and then a movement for a description of the location\n");
+	printf("Open door/close door to open or close it\n");
+	printf("Help to re-establish this message\n");
+	printf("Quit to quit/finish the game\n");
+}
 
+
+World::~World() //DESTRUCTOR, free memory
+{
+	delete[]player;
+	delete[]exits;
+	delete[]rooms;
+}
 
