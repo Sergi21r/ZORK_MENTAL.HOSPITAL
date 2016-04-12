@@ -16,8 +16,7 @@ public:
 	World();
 public:
 	void CreateWorld() const;
-	void Separate(char operation[]);
-	void Help(char operation[])const;
+	void Help()const;
 
 	~World();
 private:
