@@ -5,6 +5,9 @@
 
 int main(){
 
+	World a;
+
+	a.Help();
 
 	system("pause");
 	return 0;
