@@ -17,6 +17,7 @@ public:
 
 	void CreateWorld() const;
 	void Help()const;
+	void Movement()const;
 
 	~World();
 };

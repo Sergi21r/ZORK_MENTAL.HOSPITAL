@@ -1,6 +1,11 @@
 #include "World.h"
+#include "Exit.h"
+#include "Room.h"
+#include "Player.h"
 #include<string.h>
 #include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
 #define NUM_ROOMS 9
 #define NUM_EXITS 16
 
@@ -9,7 +14,7 @@ World::World() //CONSTRUCTOR, memory reserve
 
 	rooms = new Room[NUM_ROOMS];
 	exits = new Exit[NUM_EXITS];
-	player = new Player;
+	player = new Player[1];
 	//player->position = rooms + 0;//player location
 }
 
@@ -195,6 +200,13 @@ void World::Help() const
 	printf("Open door/close door to open or close it\n");
 	printf("Help to re-establish this message\n");
 	printf("Quit to quit/finish the game\n");
+}
+
+void World::Movement()const
+{
+	player[0].position = &rooms[0];
+
+	printf("\nYou are in %s , what you wanna do?\n\n", rooms[0].description);
 }
 
 
