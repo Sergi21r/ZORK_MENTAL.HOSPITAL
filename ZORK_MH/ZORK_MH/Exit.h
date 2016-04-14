@@ -15,7 +15,7 @@ enum directions
 
 class Exit{
 public:
-	char name[20];
+	char name[50];
 	char description[200];
 	bool closed = false;
 	bool door = false;

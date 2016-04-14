@@ -14,7 +14,7 @@ World::World() //CONSTRUCTOR, memory reserve
 
 	rooms = new Room[NUM_ROOMS];
 	exits = new Exit[NUM_EXITS];
-	player = new Player[1];
+	player = new Player;
 	//player->position = rooms + 0;//player location
 }
 
@@ -23,7 +23,9 @@ void World::CreateWorld() const
 	/*--------------------------------------------------CREATION ROOMS--------------------------------------------------*/
 
 	strcpy_s((rooms[0]).name, "Office");
-	strcpy_s((rooms[0]).description, "This is the place where you spend a lot of time of the day.");
+	strcpy_s(rooms[0].description, "This is the place where you spend a lot of time of the day.");
+
+	//printf("%s", rooms[0].name);
 
 	strcpy_s((rooms[1]).name, "Corridor 1");
 	strcpy_s((rooms[1]).description, "This is the corridor that connects with office, cell 1, cell 2 and the other corridor.");
@@ -181,12 +183,14 @@ void World::CreateWorld() const
 	exits[15].org = (rooms + 8);
 	exits[15].dst = (rooms + 5);
 	exits[15].direction = EAST;
+	exits[15].door = true;
+	exits[15].closed = true;
 
 }
 
 void World::Help() const
 {
-	printf("---------------WELCOME TO THE MENTAL HOSPITAL ZORK---------------\n");
+	printf("---------------------WELCOME TO THE MENTAL HOSPITAL ZORK---------------------\n");
 	printf("You are the doctor of this hospital and you work very hard every journal day.\n");
 	printf("In this moment you are in your office but the electricity of the hospital\n");
 	printf("crashes, lights go out and doors are open\n");
@@ -194,7 +198,7 @@ void World::Help() const
 	printf("you are a bit scared about the situation\n\n");
 	printf("OBJECIVE: Try to escape from the hospital. NOTE: Emergency escape is locked,\n");
 	printf("you have to find a secret way for escape\n\n");
-	printf("-------------------MOVEMENTS AND INTERACTIONS:-------------------\n");
+	printf("------------------------MOVEMENTS AND INTERACTIONS:--------------------------\n");
 	printf("NORTH/SOUTH/EAST/WEST , N/S/E/W , Go North/Go South/Go East/Go West\n");
 	printf("Look and then a movement for a description of the location\n");
 	printf("Open door/close door to open or close it\n");
@@ -205,8 +209,175 @@ void World::Help() const
 void World::Movement()const
 {
 	player[0].position = &rooms[0];
+	char entry[100];
+	int quit = 1;
+	Room * current_pos;
 
-	printf("\nYou are in %s , what you wanna do?\n\n", rooms[0].description);
+
+
+
+	do
+	{
+		current_pos = player[0].position;
+
+		printf("\nYou are in %s , what you wanna do?\n\n>>", player[0].position->name);
+		gets_s(entry);
+
+		if (strcmp(entry, "Quit") == 0 || strcmp(entry, "quit") == 0||strcmp(entry, "Q") == 0 || strcmp(entry, "q") == 0)
+		{
+			quit = 0;
+			exit(0);
+		}
+
+		if (strcmp(entry, "Help") == 0 || strcmp(entry, "help") == 0 || strcmp(entry, "H") == 0 || strcmp(entry, "h") == 0)
+		{
+			Help();
+		}
+
+		if (strcmp(entry, "Look") == 0 || strcmp(entry, "look") == 0)
+		{
+			printf("\n - %s", player[0].position->description);
+		}
+
+		if (strcmp(entry, "North") == 0 || strcmp(entry, "north") == 0 || strcmp(entry, "N") == 0 || strcmp(entry, "n") == 0)
+		{
+			for (int i = 0; i < NUM_EXITS; i++){
+				if ((strcmp(player[0].position->name, exits[i].org->name) == 0)&&(exits[i].direction== NORTH))
+				{
+					if (exits[i].door == true && exits[i].closed == true)
+					{
+						printf("\n - Door closed");
+					}
+					else
+					{
+						player[0].position = exits[i].dst;
+					}
+					break;
+				}
+			}
+			if (player[0].position == current_pos)
+			{
+				printf("\n - You hit the wall");
+			}
+		}
+
+		if (strcmp(entry, "West") == 0 || strcmp(entry, "west") == 0 || strcmp(entry, "W") == 0 || strcmp(entry, "w") == 0)
+		{
+			for (int i = 0; i < NUM_EXITS; i++){
+				if ((strcmp(player[0].position->name, exits[i].org->name) == 0) && (exits[i].direction == WEST))
+				{
+					if (exits[i].door == true && exits[i].closed == true)
+					{
+						printf("\n - Door closed");
+					}
+					else
+					{
+						player[0].position = exits[i].dst;
+					}
+					break;
+				}
+			}
+			if (player[0].position == current_pos)
+			{
+				printf("\n - You hit the wall");
+			}
+		}
+
+		if (strcmp(entry, "East") == 0 || strcmp(entry, "east") == 0 || strcmp(entry, "E") == 0 || strcmp(entry, "e") == 0)
+		{
+			for (int i = 0; i < NUM_EXITS; i++){
+				if ((strcmp(player[0].position->name, exits[i].org->name) == 0) && (exits[i].direction == EAST))
+				{
+					if (exits[i].door == true && exits[i].closed == true)
+					{
+						printf("\n - Door closed");
+					}
+					else
+					{
+						player[0].position = exits[i].dst;
+					}
+					break;
+				}
+			}
+			if (player[0].position == current_pos)
+			{
+				printf("\n - You hit the wall");
+			}
+		}
+
+		if (strcmp(entry, "South") == 0 || strcmp(entry, "south") == 0 || strcmp(entry, "S") == 0 || strcmp(entry, "s") == 0)
+		{
+			for (int i = 0; i < NUM_EXITS; i++){
+				if ((strcmp(player[0].position->name, exits[i].org->name) == 0) && (exits[i].direction == SOUTH))
+				{
+					if (exits[i].door == true && exits[i].closed == true)
+					{
+						printf("\n - Door closed");
+					}
+					else
+					{
+						player[0].position = exits[i].dst;
+					}
+					break;
+				}
+			}
+			if (player[0].position == current_pos)
+			{
+				printf("\n - You hit the wall");
+			}
+		}
+		
+		if (strcmp(entry, "Open") == 0 || strcmp(entry, "open") == 0)
+		{
+			
+			for (int i = 0; i < NUM_EXITS; i++){
+				if (strcmp(player[0].position->name, exits[i].org->name) == 0)
+				{
+					if (exits[i].door == true && exits[i].closed == true)
+					{
+						for (int j = 0; j < NUM_EXITS; j++)
+						{
+							if (exits[j].dst->name == exits[i].org->name&&exits[j].org->name == exits[i].dst->name)
+							{
+								exits[j].closed = false;
+								break;
+							}
+						}
+						exits[i].closed = false;
+						printf("\n - You opened the door");
+					}
+				}
+			}
+
+		}
+
+		if (strcmp(entry, "Close") == 0 || strcmp(entry, "close") == 0)
+		{
+
+			for (int i = 0; i < NUM_EXITS; i++){
+				if (strcmp(player[0].position->name, exits[i].org->name) == 0)
+				{
+					if (exits[i].door == true && exits[i].closed == false)
+					{
+						for (int j = 0; j < NUM_EXITS; j++)
+						{
+							if (exits[j].dst->name == exits[i].org->name && exits[j].org->name == exits[i].dst->name)
+							{
+								exits[j].closed = true;
+								break;
+							}
+						}
+						exits[i].closed = true;
+						printf("\n - You closed the door");
+					}
+				}
+			}
+
+		}
+
+
+		printf("\n");
+	} while (quit!=0);
 }
 
 

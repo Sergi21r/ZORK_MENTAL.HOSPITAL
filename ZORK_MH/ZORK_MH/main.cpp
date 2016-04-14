@@ -8,8 +8,8 @@ int main(){
 	World a;
 
 	a.Help();
+	a.CreateWorld();
 	a.Movement();
-
 
 	system("pause");
 	return 0;
