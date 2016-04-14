@@ -14,18 +14,11 @@ public:
 	Exit* exits = nullptr;
 
 	World();
-public:
+
 	void CreateWorld() const;
 	void Help()const;
 
 	~World();
-private:
-	int GetDirection(char operation[]);
-	void GetOperation(char ope[], char ope2[]);
-	void Go(char operation[]);
-	void Look(char operation[]);
-	void Open(char operation[]);
-	void Close(char operation[]);
 };
 
 
