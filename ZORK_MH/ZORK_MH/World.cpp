@@ -197,13 +197,14 @@ void World::Help() const
 	printf("Now you listen a lot of noises and the inmates walking around the hospital,\n");
 	printf("you are a bit scared about the situation\n\n");
 	printf("OBJECIVE: Try to escape from the hospital. NOTE: Emergency escape is locked,\n");
-	printf("you have to find a secret way for escape\n\n");
+	printf("you have to find a secret way for escape. ENJOY THE GAME\n\n");
 	printf("------------------------MOVEMENTS AND INTERACTIONS:--------------------------\n");
-	printf("NORTH/SOUTH/EAST/WEST , N/S/E/W , Go North/Go South/Go East/Go West\n");
-	printf("Look and then a movement for a description of the location\n");
-	printf("Open door/close door to open or close it\n");
-	printf("Help to re-establish this message\n");
-	printf("Quit to quit/finish the game\n");
+	printf("North/South/East/West , north/south/east/west , N/S/E/W , go n/go s/go e/go w\n");
+	printf("Go North/Go South/Go East/Go West , go north/go south/go east/go west\n");
+	printf("Look/look for show a description of the location\n");
+	printf("Open/open close to open or close a door\n");
+	printf("Help/help/H/h to re-establish this message\n");
+	printf("Quit/quit/Q/q to quit/finish the game\n");
 }
 
 void World::Movement()const
@@ -229,17 +230,17 @@ void World::Movement()const
 			exit(0);
 		}
 
-		if (strcmp(entry, "Help") == 0 || strcmp(entry, "help") == 0 || strcmp(entry, "H") == 0 || strcmp(entry, "h") == 0)
+		else if (strcmp(entry, "Help") == 0 || strcmp(entry, "help") == 0 || strcmp(entry, "H") == 0 || strcmp(entry, "h") == 0)
 		{
 			Help();
 		}
 
-		if (strcmp(entry, "Look") == 0 || strcmp(entry, "look") == 0)
+		else if (strcmp(entry, "Look") == 0 || strcmp(entry, "look") == 0)
 		{
 			printf("\n - %s", player[0].position->description);
 		}
 
-		if (strcmp(entry, "North") == 0 || strcmp(entry, "north") == 0 || strcmp(entry, "N") == 0 || strcmp(entry, "n") == 0)
+		else if (strcmp(entry, "North") == 0 || strcmp(entry, "north") == 0 || strcmp(entry, "N") == 0 || strcmp(entry, "n") == 0 || strcmp(entry, "Go north") == 0 || strcmp(entry, "go north") == 0 || strcmp(entry, "go n") == 0)
 		{
 			for (int i = 0; i < NUM_EXITS; i++){
 				if ((strcmp(player[0].position->name, exits[i].org->name) == 0)&&(exits[i].direction== NORTH))
@@ -261,7 +262,7 @@ void World::Movement()const
 			}
 		}
 
-		if (strcmp(entry, "West") == 0 || strcmp(entry, "west") == 0 || strcmp(entry, "W") == 0 || strcmp(entry, "w") == 0)
+		else if (strcmp(entry, "West") == 0 || strcmp(entry, "west") == 0 || strcmp(entry, "W") == 0 || strcmp(entry, "w") == 0 || strcmp(entry, "Go west") == 0 || strcmp(entry, "go west") == 0||strcmp(entry, "go w") == 0)
 		{
 			for (int i = 0; i < NUM_EXITS; i++){
 				if ((strcmp(player[0].position->name, exits[i].org->name) == 0) && (exits[i].direction == WEST))
@@ -283,7 +284,7 @@ void World::Movement()const
 			}
 		}
 
-		if (strcmp(entry, "East") == 0 || strcmp(entry, "east") == 0 || strcmp(entry, "E") == 0 || strcmp(entry, "e") == 0)
+		else if (strcmp(entry, "East") == 0 || strcmp(entry, "east") == 0 || strcmp(entry, "E") == 0 || strcmp(entry, "e") == 0 || strcmp(entry, "Go east") == 0 || strcmp(entry, "go east") == 0||strcmp(entry, "go e") == 0)
 		{
 			for (int i = 0; i < NUM_EXITS; i++){
 				if ((strcmp(player[0].position->name, exits[i].org->name) == 0) && (exits[i].direction == EAST))
@@ -305,7 +306,7 @@ void World::Movement()const
 			}
 		}
 
-		if (strcmp(entry, "South") == 0 || strcmp(entry, "south") == 0 || strcmp(entry, "S") == 0 || strcmp(entry, "s") == 0)
+		else if (strcmp(entry, "South") == 0 || strcmp(entry, "south") == 0 || strcmp(entry, "S") == 0 || strcmp(entry, "s") == 0 || strcmp(entry, "Go south") == 0 || strcmp(entry, "go south") == 0 || strcmp(entry, "go s") == 0)
 		{
 			for (int i = 0; i < NUM_EXITS; i++){
 				if ((strcmp(player[0].position->name, exits[i].org->name) == 0) && (exits[i].direction == SOUTH))
@@ -327,7 +328,7 @@ void World::Movement()const
 			}
 		}
 		
-		if (strcmp(entry, "Open") == 0 || strcmp(entry, "open") == 0)
+		else if (strcmp(entry, "Open") == 0 || strcmp(entry, "open") == 0)
 		{
 			
 			for (int i = 0; i < NUM_EXITS; i++){
@@ -351,7 +352,7 @@ void World::Movement()const
 
 		}
 
-		if (strcmp(entry, "Close") == 0 || strcmp(entry, "close") == 0)
+		else if (strcmp(entry, "Close") == 0 || strcmp(entry, "close") == 0)
 		{
 
 			for (int i = 0; i < NUM_EXITS; i++){
@@ -375,6 +376,10 @@ void World::Movement()const
 
 		}
 
+		else
+		{
+			printf("\n - Invalid command, write help for show all commands.");
+		}
 
 		printf("\n");
 	} while (quit!=0);
